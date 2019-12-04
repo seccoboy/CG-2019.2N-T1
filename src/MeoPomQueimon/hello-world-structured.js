@@ -18,8 +18,18 @@ var timerPadilha = 0;
 var sentidoPadilha = 1;
 
 var animate = function() {
+    
     requestAnimationFrame(animate);
+    
+    
+    animatePadilha();
+    
+    
+    renderer.render(scene, camera);
 
+};
+
+animatePadilha = function(){
     timerPadilha += 0.01 * sentidoPadilha;
 
     if(timerPadilha >= 1){
@@ -50,10 +60,9 @@ var animate = function() {
     }
         padilha.position.x += 0.01 * sentidox;
         padilha.position.y += 0.01 * sentidoy;
-    renderer.render(scene, camera);
-};
+  
 
-
+}
 animate();
 
 function onKeyDown(event) {
