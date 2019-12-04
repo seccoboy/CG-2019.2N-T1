@@ -6,7 +6,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 var texture = new THREE.TextureLoader().load( './padilha.webp' );
-var geometry = new THREE.PlaneBufferGeometry( 1, 1, 1 );
+var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 var material = new THREE.MeshBasicMaterial( {map: texture} );
 var padilha = new THREE.Mesh( geometry, material );
 
