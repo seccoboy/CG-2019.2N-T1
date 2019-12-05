@@ -44,12 +44,12 @@ camera.position.y = 4;
 
 var sentido = [x = 1, y = 1, z = 1];
 var profes = [
-    {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido},
-    {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido}
+    {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido, timerPadilha = 0, sentidoPadilha = 1},
+    {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido}
 ];
 var textures = [
-    './marco.jpg', 
-    './padilha.webp'
+    './padilha.webp',
+    './marco.jpg'
 ];
 
 for(var i = 0; i < profes.length; i++) {
@@ -106,51 +106,22 @@ var animate = function() {
         }
     }
 
-
+    animatePadilha();
     renderer.render(scene, camera);
 };
 
-// animatePadilha = function(){
-//     velPadilha = 0.05;
-//     timerPadilha += 0.1 * sentidoPadilha;
-//     if(timerPadilha >= 1){
-//         // scene.remove(padilha); 
-//         sentidoPadilha *=-1;
-//     }
-//     if(timerPadilha <= 0){
-//         scene.add(padilha)
-//         sentidoPadilha *=-1;
-//     }
-//     if(padilha.position.y >=3){
-//         sentidoYpadilha *=-1;
-//         padilha.position.y += 0.01*sentidoYpadilha;
-//     }
+animatePadilha = function(){
+    profes[0].timerPadilha += 0.1 * sentidoPadilha;
+    if( profes[0].timerPadilha >= 1){
+        // scene.remove(padilha); 
+        profes[0].sentidoPadilha *=-1;
+    }
+    if(profes[0].timerPadilha <= 0){
+        scene.add(padilha)
+        profes[0].sentidoPadilha *=-1;
+    }
+}
 
-//     if(padilha.position.x >=3){
-//         sentidoXpadilha *=-1;
-//         padilha.position.x += 0.01*sentidoXpadilha;
-//     }
-//     if(padilha.position.x <=-3){
-//         sentidoXpadilha *=-1;
-//         padilha.position.x += 0.01*sentidoXpadilha;
-//     }
-//     if(padilha.position.y <=-3){
-//         sentidoYpadilha *=-1;
-//         padilha.position.y += 0.01*sentidoYpadilha;
-//     }
-//     if(padilha.position.z <=-3){
-//         sentidoZpadilha *=-1;
-//         padilha.position.z += 0.01*sentidoXpadilha;
-//     }
-//     if(padilha.position.z >= 3){
-//         sentidoZpadilha *=-1;
-//         padilha.position.z += 0.01*sentidoYpadilha;
-//     }
-//         padilha.position.x += velPadilha * sentidoXpadilha;
-//         padilha.position.y += velPadilha * sentidoYpadilha;
-//         padilha.position.z += velPadilha * sentidoZpadilha;
- 
-// }
 animate();
 function onKeyDown(event) {
     var keyCode = event.which;
