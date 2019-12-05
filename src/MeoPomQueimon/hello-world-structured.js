@@ -9,19 +9,6 @@ light.position.set( 0, 10, -10 );
 scene.add( light );
 light.castShadow = true;
 
-// var padilhaTexture = new THREE.TextureLoader().load( './padilha.webp' );
-// var padilhaGeometry = new THREE.BoxGeometry( 1, 1, 1 );
-// var padilhaMaterial = new THREE.MeshBasicMaterial( {map: padilhaTexture} );
-// var padilha = new THREE.Mesh( padilhaGeometry, padilhaMaterial );
-// padilha.receiveShadow = true;
-
-
-// var marcoTexture = new THREE.TextureLoader().load( './marco.jpg' );
-// var marcoGeometry = new THREE.BoxGeometry( 1, 1, 1 );
-// var marcoMaterial = new THREE.MeshBasicMaterial( {map: marcoTexture} );
-// var marco = new THREE.Mesh( marcoGeometry, marcoMaterial );
-// marco.receiveShadow = true;
-
 // var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('./ground.jfif')}));
 var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), 
                              new THREE.MeshPhongMaterial({color:0xff00ff, 
@@ -62,20 +49,8 @@ for(var i = 0; i < profes.length; i++) {
     cube.position.x = i * 2;
     profes[i].cube = cube;
     scene.add(cube);
+    profes[i].cube.receiveShadow = true;
 }
-
-
-
-var sentidoXpadilha = 1;
-var sentidoYpadilha = 1;
-var sentidoZpadilha = 1;
-var timerPadilha = 0;
-var sentidoPadilha = 1;
-
-var sentidoMarco = 1;
-var sentidoXmarco = 1;
-var sentidoYmarco = 1;
-var sentidoZmarco = 1;
 
 var animate = function() {
     requestAnimationFrame(animate);
