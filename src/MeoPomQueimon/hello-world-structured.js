@@ -45,11 +45,14 @@ camera.position.y = 4;
 var sentido = [x = 1, y = 1, z = 1];
 var profes = [
     {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido, timerPadilha: 0, sentidoPadilha: 1},
-    {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido}
+    {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido},
+    {nome: "Edson", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido},
+
 ];
 var textures = [
     './padilha.webp',
-    './marco.jpg'
+    './marco.jpg',
+    './edson.webp'
 ];
 
 for(var i = 0; i < profes.length; i++) {
@@ -76,6 +79,12 @@ var sentidoZmarco = 1;
 
 var animate = function() {
     requestAnimationFrame(animate);
+    animateProfes();
+    animatePadilha();
+    renderer.render(scene, camera);
+};
+
+animateProfes = function(){
     for(var i = 0; i < profes.length; i++) {
         profes[i].cube.position.x += 0.01 * profes[i].sentido[0];
         profes[i].cube.position.y += 0.01 * profes[i].sentido[1];
@@ -105,13 +114,11 @@ var animate = function() {
             profes[i].cube.position.x += 0.01 * profes[i].sentido[1];
         }
     }
+}
 
-    animatePadilha();
-    renderer.render(scene, camera);
-};
 
 animatePadilha = function(){
-    profes[0].timerPadilha += 0.1 * profes[0].sentidoPadilha;
+    profes[0].timerPadilha += 0.01 * profes[0].sentidoPadilha;
     if( profes[0].timerPadilha >= 1){
         scene.remove(profes[0].cube); 
         profes[0].sentidoPadilha *=-1;
