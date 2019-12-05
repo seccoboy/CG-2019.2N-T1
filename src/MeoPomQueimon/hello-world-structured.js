@@ -45,16 +45,25 @@ var sentidoZmarco = 1;
 
 var animate = function() {
     requestAnimationFrame(animate);
-    // colisions();
     animatePadilha();
     animateMarco();
+    colisions();
     renderer.render(scene, camera);
 };
 
+colisions = function(){
+    if(marco.position.x+0.5 == padilha.position.x || 
+       marco.position.y+0.5 == padilha.position.y ||
+       marco.position.z+0.5 == padilha.position.z ){
+        sentidoXmarco *= -1;        
+        sentidoYmarco *= -1;        
+        sentidoZmarco *= -1;        
+    }
+}
 
 
 animateMarco = function(){
-    velMarco = 0.2;
+    velMarco = 0.05;
     scene.add(marco)
     if(marco.position.y >=3){
         sentidoYmarco *=-1;
@@ -80,14 +89,14 @@ animateMarco = function(){
         sentidoZmarco *=-1;
         marco.position.z += 0.01*sentidoYmarco;
     }
-    marco.position.x += velMarco * sentidoXmarco;
+    marco.position.x += (velMarco+0.05) * sentidoXmarco;
     marco.position.y += velMarco * sentidoYmarco;
     marco.position.z += velMarco * sentidoZmarco;
 
 }
 
 animatePadilha = function(){
-    velPadilha = 0.1;
+    velPadilha = 0.05;
     timerPadilha += 0.1 * sentidoPadilha;
     if(timerPadilha >= 1){
         // scene.remove(padilha); 
