@@ -15,32 +15,80 @@ var padilhaMaterial = new THREE.MeshBasicMaterial( {map: padilhaTexture} );
 var padilha = new THREE.Mesh( padilhaGeometry, padilhaMaterial );
 padilha.receiveShadow = true;
 
+
+var marcoTexture = new THREE.TextureLoader().load( './marco.jpg' );
+var marcoGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+var marcoMaterial = new THREE.MeshBasicMaterial( {map: marcoTexture} );
+var marco = new THREE.Mesh( marcoGeometry, marcoMaterial );
+marco.receiveShadow = true;
+
+
 var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshPhongMaterial ({color: 0x999900, depthWrite: false}));
 ground.rotation.x = - Math.PI / 2;
-ground.position.y = -1;
+ground.position.y = -3.5;
 ground.receiveShadow = true;
 scene.add(ground)
 camera.position.z = 10;
 camera.rotation.x = - (Math.PI / 8);
-camera.position.y = 2;
+camera.position.y = 4;
 
-var sentidox = 1;
-var sentidoy = 1;
-var sentidoz = 1;
+var sentidoXpadilha = 1;
+var sentidoYpadilha = 1;
+var sentidoZpadilha = 1;
 var timerPadilha = 0;
 var sentidoPadilha = 1;
 
+var sentidoMarco = 1;
+var sentidoXmarco = 1;
+var sentidoYmarco = 1;
+var sentidoZmarco = 1;
+
 var animate = function() {
     requestAnimationFrame(animate);
+    // colisions();
     animatePadilha();
-  
+    animateMarco();
     renderer.render(scene, camera);
 };
 
 
 
+animateMarco = function(){
+    velMarco = 0.2;
+    scene.add(marco)
+    if(marco.position.y >=3){
+        sentidoYmarco *=-1;
+        marco.position.y += 0.01*sentidoYmarco;
+    }
+    if(marco.position.x >=3){
+        sentidoXmarco *=-1;
+        marco.position.x += 0.01*sentidoXmarco;
+    }
+    if(marco.position.x <=-3){
+        sentidoXmarco *=-1;
+        marco.position.x += 0.01*sentidoXmarco;
+    }
+    if(marco.position.y <=-3){
+        sentidoYmarco *=-1;
+        marco.position.y += 0.01*sentidoYmarco;
+    }
+    if(marco.position.z <=-3){
+        sentidoZmarco *=-1;
+        marco.position.z += 0.01*sentidoXmarco;
+    }
+    if(marco.position.z >= 3){
+        sentidoZmarco *=-1;
+        marco.position.z += 0.01*sentidoYmarco;
+    }
+    marco.position.x += velMarco * sentidoXmarco;
+    marco.position.y += velMarco * sentidoYmarco;
+    marco.position.z += velMarco * sentidoZmarco;
+
+}
+
 animatePadilha = function(){
-    timerPadilha += 0.01 * sentidoPadilha;
+    velPadilha = 0.1;
+    timerPadilha += 0.1 * sentidoPadilha;
     if(timerPadilha >= 1){
         // scene.remove(padilha); 
         sentidoPadilha *=-1;
@@ -50,33 +98,33 @@ animatePadilha = function(){
         sentidoPadilha *=-1;
     }
     if(padilha.position.y >=3){
-        sentidoy *=-1;
-        padilha.position.y += 0.01*sentidoy;
+        sentidoYpadilha *=-1;
+        padilha.position.y += 0.01*sentidoYpadilha;
     }
 
     if(padilha.position.x >=3){
-        sentidox *=-1;
-        padilha.position.x += 0.01*sentidox;
+        sentidoXpadilha *=-1;
+        padilha.position.x += 0.01*sentidoXpadilha;
     }
     if(padilha.position.x <=-3){
-        sentidox *=-1;
-        padilha.position.x += 0.01*sentidox;
+        sentidoXpadilha *=-1;
+        padilha.position.x += 0.01*sentidoXpadilha;
     }
     if(padilha.position.y <=-3){
-        sentidoy *=-1;
-        padilha.position.y += 0.01*sentidoy;
+        sentidoYpadilha *=-1;
+        padilha.position.y += 0.01*sentidoYpadilha;
     }
     if(padilha.position.z <=-3){
-        sentidoz *=-1;
-        padilha.position.z += 0.01*sentidox;
+        sentidoZpadilha *=-1;
+        padilha.position.z += 0.01*sentidoXpadilha;
     }
     if(padilha.position.z >= 3){
-        sentidoz *=-1;
-        padilha.position.z += 0.01*sentidoy;
+        sentidoZpadilha *=-1;
+        padilha.position.z += 0.01*sentidoYpadilha;
     }
-        padilha.position.x += 0.01 * sentidox;
-        padilha.position.y += 0.01 * sentidoy;
-        padilha.position.z += 0.01 * sentidoz;
+        padilha.position.x += velPadilha * sentidoXpadilha;
+        padilha.position.y += velPadilha * sentidoYpadilha;
+        padilha.position.z += velPadilha * sentidoZpadilha;
  
 }
 animate();
