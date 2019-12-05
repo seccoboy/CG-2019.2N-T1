@@ -4,8 +4,8 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-var light = new THREE.PointLight( 0xffffff, 2, 100, 1 );
-light.position.set( 10, 10, 10 );
+var light = new THREE.PointLight( 0xffffff, 1, 100, 1 );
+light.position.set( 0, 10, -10 );
 scene.add( light );
 light.castShadow = true;
 
@@ -22,12 +22,21 @@ var marcoMaterial = new THREE.MeshBasicMaterial( {map: marcoTexture} );
 var marco = new THREE.Mesh( marcoGeometry, marcoMaterial );
 marco.receiveShadow = true;
 
-
-var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshPhongMaterial ({color: 0x999900, depthWrite: false}));
+// var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('./ground.jfif')}));
+var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), 
+                             new THREE.MeshPhongMaterial({color:0xff00ff, 
+                             depthWrite: true}));
 ground.rotation.x = - Math.PI / 2;
 ground.position.y = -3.5;
 ground.receiveShadow = true;
 scene.add(ground)
+
+var grid = new THREE.GridHelper (2000, 3500, 0x000000, 0x000000);
+grid.material.opacity = 0.2;
+grid.material.transparent = true;
+scene.add(grid);
+
+
 camera.position.z = 10;
 camera.rotation.x = - (Math.PI / 8);
 camera.position.y = 4;
@@ -47,19 +56,19 @@ var animate = function() {
     requestAnimationFrame(animate);
     animatePadilha();
     animateMarco();
-    colisions();
+    // colisions();
     renderer.render(scene, camera);
 };
 
-colisions = function(){
-    if(marco.position.x+0.5 == padilha.position.x || 
-       marco.position.y+0.5 == padilha.position.y ||
-       marco.position.z+0.5 == padilha.position.z ){
-        sentidoXmarco *= -1;        
-        sentidoYmarco *= -1;        
-        sentidoZmarco *= -1;        
-    }
-}
+// colisions = function(){
+//     if(marco.position.x == padilha.position.x || 
+//        marco.position.y == padilha.position.y ||
+//        marco.position.z == padilha.position.z ){
+//         sentidoXmarco *= -1;        
+//         sentidoYmarco *= -1;        
+//         sentidoZmarco *= -1;        
+//     }
+// }
 
 
 animateMarco = function(){
