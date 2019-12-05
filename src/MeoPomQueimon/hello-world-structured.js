@@ -44,7 +44,7 @@ camera.position.y = 4;
 
 var sentido = [x = 1, y = 1, z = 1];
 var profes = [
-    {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido, timerPadilha = 0, sentidoPadilha = 1},
+    {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido, timerPadilha: 0, sentidoPadilha: 1},
     {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido}
 ];
 var textures = [
@@ -111,13 +111,13 @@ var animate = function() {
 };
 
 animatePadilha = function(){
-    profes[0].timerPadilha += 0.1 * sentidoPadilha;
+    profes[0].timerPadilha += 0.1 * profes[0].sentidoPadilha;
     if( profes[0].timerPadilha >= 1){
-        // scene.remove(padilha); 
+        scene.remove(profes[0].cube); 
         profes[0].sentidoPadilha *=-1;
     }
     if(profes[0].timerPadilha <= 0){
-        scene.add(padilha)
+        scene.add(profes[0].cube)
         profes[0].sentidoPadilha *=-1;
     }
 }
