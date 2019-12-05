@@ -11,17 +11,47 @@ document.body.appendChild(renderer.domElement);
 
 
 
-var texture = new THREE.TextureLoader().load( './padilha.webp' );
+var light = new THREE.PointLight( 0xffffff, 2, 100, 1 );
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+light.position.set( 10, 10, 10 );
 
-var material = new THREE.MeshBasicMaterial( {map: texture} );
+scene.add( light );
 
-var padilha = new THREE.Mesh( geometry, material );
+light.castShadow = true;
+
+
+
+
+
+var padilhaTexture = new THREE.TextureLoader().load( './padilha.webp' );
+
+var padilhaGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+
+var padilhaMaterial = new THREE.MeshBasicMaterial( {map: padilhaTexture} );
+
+var padilha = new THREE.Mesh( padilhaGeometry, padilhaMaterial );
+
+padilha.receiveShadow = true;
+
+
+
+var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshPhongMaterial ({color: 0x999900, depthWrite: false}));
+
+ground.rotation.x = - Math.PI / 2;
+
+ground.position.y = -1;
+
+ground.receiveShadow = true;
+
+scene.add(ground)
 
 
 
 camera.position.z = 10;
+
+camera.rotation.x = - (Math.PI / 8);
+
+camera.position.y = 2;
 
 
 
@@ -37,19 +67,17 @@ var sentidoPadilha = 1;
 
 
 
+
+
+
+
 var animate = function() {
 
     
 
     requestAnimationFrame(animate);
 
-    
-
-    
-
     animatePadilha();
-
-    
 
     
 
@@ -182,6 +210,18 @@ function onKeyDown(event) {
     } else if (keyCode == 32) {
 
         padilha.position.set(0, 0, 0);
+
+    }
+
+    else if (keyCode == 81) {
+
+        padilha.position.z -= speed;
+
+    }
+
+    else if (keyCode == 69) {
+
+        padilha.position.z += speed;
 
     }
 
