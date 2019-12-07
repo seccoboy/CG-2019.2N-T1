@@ -46,13 +46,13 @@ var profes = [
 
 ];
 var textures = [
-    './padilha.webp',
-    './marco.jpg',
-    './edson.webp',
-    './caimi.webp',
-    './caimi1.webp',
-    './caimi2webp',
-    './caimi3webp'
+    'img/padilha.webp',
+    'img/marco.jpg',
+    'img/edson.webp',
+    'img/caimi.webp',
+    'img/caimi1.webp',
+    'img/caimi2webp',
+    'img/caimi3webp'
 ];
 
 for(var i = 0; i < profes.length; i++) {
