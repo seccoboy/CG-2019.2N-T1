@@ -3,7 +3,7 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeigh
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
 var light = new THREE.PointLight( 0xffffff, 1, 100, 1 );
 light.position.set( 0, 10, -10 );
 scene.add( light );
@@ -14,9 +14,6 @@ light.castShadow = true;
 //         new THREE.MeshBasicMaterial({color:0x00ffff, depthWrite: true}));
 // scene.add(testCube);
 // var testCube;
-
-
-
 
 var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), 
                              new THREE.MeshPhongMaterial({color:0xff00ff, 
@@ -70,9 +67,12 @@ var animate = function() {
     
     animateProfes();
     animatePadilha();
+    controls.update();
 
     renderer.render(scene, camera);
 };
+
+
 
 animateProfes = function(){
     for(var i = 0; i < profes.length; i++) {
