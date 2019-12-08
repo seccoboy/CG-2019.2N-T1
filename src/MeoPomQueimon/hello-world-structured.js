@@ -26,6 +26,7 @@ scene.add(ground)
 var grid = new THREE.GridHelper (2000, 3500, 0x000000, 0x000000);
 grid.material.opacity = 0.2;
 grid.material.transparent = true;
+grid.position.y = -3.5;
 scene.add(grid);
 
 
@@ -73,26 +74,27 @@ var animate = function() {
     renderer.render(scene, camera);
 };
 
-// collisions = function(){
-//     for(var i = 0; i < profes.length; i++) {
-//         for (var vertexIndex = 0; vertexIndex < profes[i].geometry.vertices.length; vertexIndex++){     
+collisions = function(){
+    for(var i = 0; i < profes.length; i++) {
+        for (var vertexIndex = 0; vertexIndex < profes[i].geometry.vertices.length; vertexIndex++){     
 
-//             var localVertex = profes[i].geometry.vertices[vertexIndex].clone();
-//             var globalVertex = profes[i].matrix.multiplyVector3(localVertex);
-//             var directionVector = globalVertex.subSelf( profes[i].position );
-//             var ray = new THREE.Ray( profes[i].position, directionVector.clone().normalize() );
-//             var collisionResults = ray.intersectObjects( collidableMeshList );
+            var localVertex = profes[i].geometry.vertices[vertexIndex].clone();
+            var globalVertex = profes[i].matrix.applyMatrix3(localVertex);
+            var directionVector = globalVertex.subSelf( profes[i].position );
+            var ray = new THREE.Ray( profes[i].position, directionVector.clone().normalize() );
+            var collisionResults = ray.intersectObjects( collidableMeshList );
 
-//             if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )  {
+            if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )  {
 
-//                 profes[i].sentido[0] *= -1;
-//                 profes[i].sentido[1] *= -1;
-//                 profes[i].sentido[2] *= -1;
+                profes[i].sentido[0] *= -1;
+                profes[i].sentido[1] *= -1;
+                profes[i].sentido[2] *= -1;
+                console.log('Hit');
 
-//             }
-//         }
-//     }
-// }
+            }
+        }
+    }
+}
 
 
 animateProfes = function(){
@@ -149,19 +151,19 @@ function onKeyDown(event) {
     for(var i = 0; i < profes.length; i++) {
         console.log('keyCode', keyCode);
         if (keyCode == 87) {
-            profes[i].cube.position.y += speed;
+            profes[0].cube.position.y += speed;
         } else if (keyCode == 83) {
-            profes[i].cube.position.y -= speed;
+            profes[0].cube.position.y -= speed;
         } else if (keyCode == 65) {
-            profes[i].cube.position.x -= speed;
+            profes[0].cube.position.x -= speed;
         } else if (keyCode == 68) {
-            profes[i].cube.position.x += speed;
+            profes[0].cube.position.x += speed;
         } else if (keyCode == 81) {
-            profes[i].cube.position.z -= speed;
+            profes[0].cube.position.z -= speed;
         } else if (keyCode == 69) {
-            profes[i].cube.position.z += speed;
+            profes[0].cube.position.z += speed;
         } else if (keyCode == 32) {
-            profes[i].cube.position.set(0, 0, 0);
+            profes[0].cube.position.set(0, 0, 0);
         }
     }
 };
