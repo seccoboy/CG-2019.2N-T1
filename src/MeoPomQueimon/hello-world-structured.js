@@ -66,12 +66,33 @@ var animate = function() {
     requestAnimationFrame(animate);
     
     animateProfes();
-    animatePadilha();
+    animatePadilha();    
+    // collisions();
     controls.update();
 
     renderer.render(scene, camera);
 };
 
+// collisions = function(){
+//     for(var i = 0; i < profes.length; i++) {
+//         for (var vertexIndex = 0; vertexIndex < profes[i].geometry.vertices.length; vertexIndex++){     
+
+//             var localVertex = profes[i].geometry.vertices[vertexIndex].clone();
+//             var globalVertex = profes[i].matrix.multiplyVector3(localVertex);
+//             var directionVector = globalVertex.subSelf( profes[i].position );
+//             var ray = new THREE.Ray( profes[i].position, directionVector.clone().normalize() );
+//             var collisionResults = ray.intersectObjects( collidableMeshList );
+
+//             if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )  {
+
+//                 profes[i].sentido[0] *= -1;
+//                 profes[i].sentido[1] *= -1;
+//                 profes[i].sentido[2] *= -1;
+
+//             }
+//         }
+//     }
+// }
 
 
 animateProfes = function(){
@@ -79,7 +100,7 @@ animateProfes = function(){
         profes[i].cube.position.x += (0.01 * ((i+1)/10)) * profes[i].sentido[0];
         profes[i].cube.position.y += (0.01 * ((i+1)/10)) * profes[i].sentido[1];
         profes[i].cube.position.z += (0.01 * ((i+1)/10)) * profes[i].sentido[2];
-       
+
         if(profes[i].cube.position.x >= 3){
             profes[i].sentido[0] *= -1;
             profes[i].cube.position.x += 0.01 * profes[i].sentido[0];
@@ -106,6 +127,7 @@ animateProfes = function(){
         }
     }
 }
+
 
 
 animatePadilha = function(){
