@@ -42,13 +42,27 @@ var profes = [
     {nome: "Marco", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
     {nome: "Edson", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
     {nome: "Caimi", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-
+    {nome: "Braulio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Bins", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Denio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Emilio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Grazi", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Guilherme", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Neri", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
 ];
+
 var textures = [
     'img/padilha.webp',
     'img/marco.jpg',
     'img/edson.webp',
     'img/caimi.webp',
+    'img/braulio.webp',
+    'img/bins1.webp',
+    'img/denio4.webp',
+    'img/emilio.webp',
+    'img/grazi.webp',
+    'img/guilherme.webp',
+    'img/neri.webp',
 ];
 
 for(var i = 0; i < profes.length; i++) {
