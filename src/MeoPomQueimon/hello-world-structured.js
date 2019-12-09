@@ -35,12 +35,13 @@ camera.rotation.x = - (Math.PI / 8);
 camera.position.y = 4;
 
 
+
 var sentido = [x = 1, y = 1, z = 1];
 var profes = [
-    {nome: "Padilha", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
-    {nome: "Marco", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Edson", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Caimi", geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Padilha", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
+    {nome: "Marco", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Edson", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Caimi", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
 
 ];
 var textures = [
@@ -67,43 +68,24 @@ var animate = function() {
     requestAnimationFrame(animate);
     
     animateProfes();
-    animatePadilha();    
-    // collisions();
+    // animatePadilha();    
     controls.update();
 
     renderer.render(scene, camera);
 };
 
-collisions = function(){
-    for(var i = 0; i < profes.length; i++) {
-        for (var vertexIndex = 0; vertexIndex < profes[i].geometry.vertices.length; vertexIndex++){     
 
-            var localVertex = profes[i].geometry.vertices[vertexIndex].clone();
-            var globalVertex = profes[i].matrix.applyMatrix3(localVertex);
-            var directionVector = globalVertex.subSelf( profes[i].position );
-            var ray = new THREE.Ray( profes[i].position, directionVector.clone().normalize() );
-            var collisionResults = ray.intersectObjects( collidableMeshList );
-
-            if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )  {
-
-                profes[i].sentido[0] *= -1;
-                profes[i].sentido[1] *= -1;
-                profes[i].sentido[2] *= -1;
-                console.log('Hit');
-
-            }
-        }
-    }
-}
 
 
 animateProfes = function(){
     for(var i = 0; i < profes.length; i++) {
-        profes[i].cube.position.x += (0.01 * ((i+1)/10)) * profes[i].sentido[0];
-        profes[i].cube.position.y += (0.01 * ((i+1)/10)) * profes[i].sentido[1];
-        profes[i].cube.position.z += (0.01 * ((i+1)/10)) * profes[i].sentido[2];
-
-        if(profes[i].cube.position.x >= 3){
+        // profes[i].cube.position.x += (0.01 * ((i+1)/10)) * profes[i].sentido[0];
+        // profes[i].cube.position.y += (0.01 * ((i+1)/10)) * profes[i].sentido[1];
+        // profes[i].cube.position.z += (0.01 * ((i+1)/10)) * profes[i].sentido[2];
+        profes[i].cube.position.x += (0.01) * profes[i].sentido[0];
+        profes[i].cube.position.y += (0.01) * profes[i].sentido[1];
+        profes[i].cube.position.z += (0.01) * profes[i].sentido[2];
+        if(profes[i].cube.position.x >= 6){
             profes[i].sentido[0] *= -1;
             profes[i].cube.position.x += 0.01 * profes[i].sentido[0];
         }
@@ -127,6 +109,23 @@ animateProfes = function(){
             profes[i].sentido[1] *= -1;
             profes[i].cube.position.x += 0.01 * profes[i].sentido[1];
         }
+        for(var j = 0; j < profes.length; j++){
+            if(i != j){
+                var distance = Math.sqrt(((profes[j].cube.position.x-profes[i].cube.position.x)**2) + 
+                                         ((profes[j].cube.position.y-profes[i].cube.position.y)**2) + 
+                                         ((profes[j].cube.position.z-profes[i].cube.position.z)**2));
+                if(distance >= (profes[i].radius/2 + profes[i].radius/2 )){
+                    console.log('Hit', i, ' + ', j);
+                    profes[i].sentido[0]*=-1;
+                    profes[i].sentido[1]*=-1;
+                    profes[i].sentido[2]*=-1;
+                    profes[j].sentido[0]*=-1;
+                    profes[j].sentido[1]*=-1;
+                    profes[j].sentido[2]*=-1;
+                }
+            }
+        }
+
     }
 }
 
