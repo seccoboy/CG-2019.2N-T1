@@ -49,16 +49,18 @@ var textures = [
     'img/marco.jpg',
     'img/edson.webp',
     'img/caimi.webp',
-    'img/caimi1.webp',
-    'img/caimi2webp',
-    'img/caimi3webp'
 ];
 
 for(var i = 0; i < profes.length; i++) {
     var imagem = new THREE.TextureLoader().load(textures[i]);
     var material = new THREE.MeshBasicMaterial( {map: imagem} );
     var cube = new THREE.Mesh(profes[i].geometry, material);
-    cube.position.x = i * 2;
+    if(i*2 <= 6)
+        cube.position.x = (i*2);
+    else if( (i*2)/6 <= 6)
+        cube.position.y = (i*2)/6;
+    else
+        cube.position.z = (i*2)/6**2;
     profes[i].cube = cube;
     scene.add(cube);
     profes[i].cube.receiveShadow = true;
@@ -73,9 +75,6 @@ var animate = function() {
 
     renderer.render(scene, camera);
 };
-
-
-
 
 animateProfes = function(){
     for(var i = 0; i < profes.length; i++) {
@@ -109,7 +108,7 @@ animateProfes = function(){
             profes[i].sentido[1] *= -1;
             profes[i].cube.position.x += 0.01 * profes[i].sentido[1];
         }
-        for(var j = 0; j < profes.length; j++){
+        for(var j = 0; j < profes.length; j++){ // FOR COLLISIONS */-/* PARA COLISÕES
             if(i != j){
                 var distance = Math.sqrt(((profes[j].cube.position.x-profes[i].cube.position.x)**2) + 
                                          ((profes[j].cube.position.y-profes[i].cube.position.y)**2) + 
