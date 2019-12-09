@@ -71,12 +71,9 @@ for(var i = 0; i < cubes.length; i++) {
     var imagem = new THREE.TextureLoader().load(textures[i]);
     var material = new THREE.MeshBasicMaterial( {map: imagem} );
     var cube = new THREE.Mesh(cubes[i].geometry, material);
-    if(i*2 <= 6)
-        cube.position.x = (i*2);
-    else if( (i*2)/6 <= 6)
-        cube.position.y = (i*2)/6;
-    else
-        cube.position.z = (i*2)/6**2;
+        cube.position.x = Math.floor(Math.random() * 9)-3; 
+        cube.position.y = Math.floor(Math.random() * 6)-3; 
+        cube.position.z = Math.floor(Math.random() * 6)-3; 
     cubes[i].cube = cube;
     scene.add(cube);
     cubes[i].cube.receiveShadow = true;
@@ -86,7 +83,7 @@ var animate = function() {
     requestAnimationFrame(animate);
     
     animatecubes();
-    // animatePadilha();    
+    animatePadilha();    
     controls.update();
 
     renderer.render(scene, camera);
@@ -147,7 +144,7 @@ animatecubes = function(){
 
 
 animatePadilha = function(){
-    cubes[0].timerPadilha += 0.01 * cubes[0].sentidoPadilha;
+    cubes[0].timerPadilha += 0.005 * cubes[0].sentidoPadilha;
     if( cubes[0].timerPadilha >= 1){
         scene.remove(cubes[0].cube); 
         cubes[0].sentidoPadilha *=-1;
