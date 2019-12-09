@@ -37,18 +37,19 @@ camera.position.y = 4;
 
 
 var sentido = [x = 1, y = 1, z = 1];
-var profes = [
-    {nome: "Padilha", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
-    {nome: "Marco", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Edson", radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Caimi", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Braulio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Bins", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Denio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Emilio", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Grazi", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Guilherme", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Neri", radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+var cubes = [
+    {nome: "Padilha", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
+    {nome: "Marco", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Edson", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Caimi", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Braulio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Bins", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Denio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Emilio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Grazi", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Guilherme", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Neri", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Fernando", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
 ];
 
 var textures = [
@@ -63,78 +64,79 @@ var textures = [
     'img/grazi.webp',
     'img/guilherme.webp',
     'img/neri.webp',
+    'img/fernando5.webp',
 ];
 
-for(var i = 0; i < profes.length; i++) {
+for(var i = 0; i < cubes.length; i++) {
     var imagem = new THREE.TextureLoader().load(textures[i]);
     var material = new THREE.MeshBasicMaterial( {map: imagem} );
-    var cube = new THREE.Mesh(profes[i].geometry, material);
+    var cube = new THREE.Mesh(cubes[i].geometry, material);
     if(i*2 <= 6)
         cube.position.x = (i*2);
     else if( (i*2)/6 <= 6)
         cube.position.y = (i*2)/6;
     else
         cube.position.z = (i*2)/6**2;
-    profes[i].cube = cube;
+    cubes[i].cube = cube;
     scene.add(cube);
-    profes[i].cube.receiveShadow = true;
+    cubes[i].cube.receiveShadow = true;
 }
 
 var animate = function() {
     requestAnimationFrame(animate);
     
-    animateProfes();
+    animatecubes();
     // animatePadilha();    
     controls.update();
 
     renderer.render(scene, camera);
 };
 
-animateProfes = function(){
-    for(var i = 0; i < profes.length; i++) {
-        // profes[i].cube.position.x += (0.01 * ((i+1)/10)) * profes[i].sentido[0];
-        // profes[i].cube.position.y += (0.01 * ((i+1)/10)) * profes[i].sentido[1];
-        // profes[i].cube.position.z += (0.01 * ((i+1)/10)) * profes[i].sentido[2];
-        profes[i].cube.position.x += (0.01) * profes[i].sentido[0];
-        profes[i].cube.position.y += (0.01) * profes[i].sentido[1];
-        profes[i].cube.position.z += (0.01) * profes[i].sentido[2];
-        if(profes[i].cube.position.x >= 6){
-            profes[i].sentido[0] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[0];
+animatecubes = function(){
+    for(var i = 0; i < cubes.length; i++) {
+        // cubes[i].cube.position.x += (0.01 * ((i+1)/10)) * cubes[i].sentido[0];
+        // cubes[i].cube.position.y += (0.01 * ((i+1)/10)) * cubes[i].sentido[1];
+        // cubes[i].cube.position.z += (0.01 * ((i+1)/10)) * cubes[i].sentido[2];
+        cubes[i].cube.position.x += (0.01) * cubes[i].sentido[0];
+        cubes[i].cube.position.y += (0.01) * cubes[i].sentido[1];
+        cubes[i].cube.position.z += (0.01) * cubes[i].sentido[2];
+        if(cubes[i].cube.position.x >= 6){
+            cubes[i].sentido[0] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[0];
         }
-        if(profes[i].cube.position.z >= 3){
-            profes[i].sentido[2] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[2];
+        if(cubes[i].cube.position.z >= 3){
+            cubes[i].sentido[2] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[2];
         }
-        if(profes[i].cube.position.y >= 3){
-            profes[i].sentido[1] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[1];
+        if(cubes[i].cube.position.y >= 3){
+            cubes[i].sentido[1] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[1];
         }
-        if(profes[i].cube.position.x <= -3){
-            profes[i].sentido[0] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[0];
+        if(cubes[i].cube.position.x <= -3){
+            cubes[i].sentido[0] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[0];
         }
-        if(profes[i].cube.position.z <= -3){
-            profes[i].sentido[2] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[2];
+        if(cubes[i].cube.position.z <= -3){
+            cubes[i].sentido[2] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[2];
         }
-        if(profes[i].cube.position.y <= -3){
-            profes[i].sentido[1] *= -1;
-            profes[i].cube.position.x += 0.01 * profes[i].sentido[1];
+        if(cubes[i].cube.position.y <= -3){
+            cubes[i].sentido[1] *= -1;
+            cubes[i].cube.position.x += 0.01 * cubes[i].sentido[1];
         }
-        for(var j = 0; j < profes.length; j++){ // FOR COLLISIONS */-/* PARA COLISÕES
+        for(var j = 0; j < cubes.length; j++){ // FOR COLLISIONS */-/* PARA COLISÕES
             if(i != j){
-                var distance = Math.sqrt(((profes[j].cube.position.x-profes[i].cube.position.x)**2) + 
-                                         ((profes[j].cube.position.y-profes[i].cube.position.y)**2) + 
-                                         ((profes[j].cube.position.z-profes[i].cube.position.z)**2));
-                if(distance >= (profes[i].radius/2 + profes[i].radius/2 )){
+                var distance = Math.sqrt(((cubes[j].cube.position.x-cubes[i].cube.position.x)**2) + 
+                                         ((cubes[j].cube.position.y-cubes[i].cube.position.y)**2) + 
+                                         ((cubes[j].cube.position.z-cubes[i].cube.position.z)**2));
+                if(distance >= (cubes[i].radius/2 + cubes[i].radius/2 )){
                     console.log('Hit', i, ' + ', j);
-                    profes[i].sentido[0]*=-1;
-                    profes[i].sentido[1]*=-1;
-                    profes[i].sentido[2]*=-1;
-                    profes[j].sentido[0]*=-1;
-                    profes[j].sentido[1]*=-1;
-                    profes[j].sentido[2]*=-1;
+                    cubes[i].sentido[0]*=-1;
+                    cubes[i].sentido[1]*=-1;
+                    cubes[i].sentido[2]*=-1;
+                    cubes[j].sentido[0]*=-1;
+                    cubes[j].sentido[1]*=-1;
+                    cubes[j].sentido[2]*=-1;
                 }
             }
         }
@@ -145,14 +147,14 @@ animateProfes = function(){
 
 
 animatePadilha = function(){
-    profes[0].timerPadilha += 0.01 * profes[0].sentidoPadilha;
-    if( profes[0].timerPadilha >= 1){
-        scene.remove(profes[0].cube); 
-        profes[0].sentidoPadilha *=-1;
+    cubes[0].timerPadilha += 0.01 * cubes[0].sentidoPadilha;
+    if( cubes[0].timerPadilha >= 1){
+        scene.remove(cubes[0].cube); 
+        cubes[0].sentidoPadilha *=-1;
     }
-    if(profes[0].timerPadilha <= 0){
-        scene.add(profes[0].cube)
-        profes[0].sentidoPadilha *=-1;
+    if(cubes[0].timerPadilha <= 0){
+        scene.add(cubes[0].cube)
+        cubes[0].sentidoPadilha *=-1;
     }
 }
 
@@ -160,22 +162,22 @@ animate();
 function onKeyDown(event) {
     var keyCode = event.which;
     var speed = 0.1;
-    for(var i = 0; i < profes.length; i++) {
+    for(var i = 0; i < cubes.length; i++) {
         console.log('keyCode', keyCode);
         if (keyCode == 87) {
-            profes[0].cube.position.y += speed;
+            cubes[0].cube.position.y += speed;
         } else if (keyCode == 83) {
-            profes[0].cube.position.y -= speed;
+            cubes[0].cube.position.y -= speed;
         } else if (keyCode == 65) {
-            profes[0].cube.position.x -= speed;
+            cubes[0].cube.position.x -= speed;
         } else if (keyCode == 68) {
-            profes[0].cube.position.x += speed;
+            cubes[0].cube.position.x += speed;
         } else if (keyCode == 81) {
-            profes[0].cube.position.z -= speed;
+            cubes[0].cube.position.z -= speed;
         } else if (keyCode == 69) {
-            profes[0].cube.position.z += speed;
+            cubes[0].cube.position.z += speed;
         } else if (keyCode == 32) {
-            profes[0].cube.position.set(0, 0, 0);
+            cubes[0].cube.position.set(0, 0, 0);
         }
     }
 };
