@@ -46,6 +46,8 @@ var cubes = [
     {nome: "Fernando", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
     {nome: "Cleisson", type: 1, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
     {nome: "Luandro", type: 1, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Marcio", type: 1, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Nicolas", type: 1, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
 ];
 
 var textures = [
@@ -61,8 +63,10 @@ var textures = [
     'img/guilherme.webp',
     'img/neri.webp',
     'img/fernando5.webp',
-    'img/cleisson.webp',
-    'img/luandro.webp'
+    'img/cleisson1.webp',
+    'img/luandro.webp',
+    'img/marcio.webp',
+    'img/nicolas5.webp'
 
 ];
 
@@ -137,9 +141,12 @@ animatecubes = function(){
                 if(cubes[i].type == 1 && cubes[j].type == 0 || cubes[i].type == 0 && cubes[j].type == 1 ){
                     if(cubes[i].type == 1 ){
                         console.log( cubes[i].nome ,' está reprovado com o ', cubes[j].nome);
+                        // scene.remove(cubes[i].cube); 
+
                     }
                     else if(cubes[j].type == 1 ){
                         console.log( cubes[j].nome ,' está reprovado com o ', cubes[i].nome);   
+                        // scene.remove(cubes[j].cube); 
                     }
                 }
             }
