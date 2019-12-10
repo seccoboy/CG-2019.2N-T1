@@ -9,12 +9,6 @@ light.position.set( 0, 10, -10 );
 scene.add( light );
 light.castShadow = true;
 
-// var testCube = new THREE.Mesh( 
-//         new THREE.BoxGeometry(9,9,9),
-//         new THREE.MeshBasicMaterial({color:0x00ffff, depthWrite: true}));
-// scene.add(testCube);
-// var testCube;
-
 var ground = new THREE.Mesh (new THREE.PlaneBufferGeometry(2000, 2000), 
                              new THREE.MeshPhongMaterial({color:0xff00ff, 
                              depthWrite: false}));
@@ -38,23 +32,23 @@ camera.position.y = 4;
 
 var sentido = [x = 1, y = 1, z = 1];
 var cubes = [
-    {nome: "Padilha", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
-    {nome: "Marco", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Edson", type: 0, radius: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Caimi", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Braulio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Bins", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Denio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Emilio", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Grazi", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Guilherme", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Neri", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
-    {nome: "Fernando", type: 0, radius: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Padilha", type: 0, diameter: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1], timerPadilha: 0, sentidoPadilha: 1},
+    {nome: "Marco", type: 0, diameter: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Edson", type: 0, diameter: 1, geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Caimi", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Braulio", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Bins", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Denio", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Emilio", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Grazi", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Guilherme", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Neri", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
+    {nome: "Fernando", type: 0, diameter: 1,geometry: new THREE.BoxGeometry(1, 1, 1), cube: null, sentido: [1,1,1]},
 ];
 
 var textures = [
     'img/padilha.webp',
-    'img/marco.jpg',
+    'img/marco1.webp',
     'img/edson.webp',
     'img/caimi.webp',
     'img/braulio.webp',
@@ -101,11 +95,11 @@ animatecubes = function(){
             cubes[i].sentido[0] *= -1;
             cubes[i].cube.position.x += 0.01 * cubes[i].sentido[0];
         }
-        if(cubes[i].cube.position.z >= 3){
+        if(cubes[i].cube.position.z >= 4){
             cubes[i].sentido[2] *= -1;
             cubes[i].cube.position.x += 0.01 * cubes[i].sentido[2];
         }
-        if(cubes[i].cube.position.y >= 3){
+        if(cubes[i].cube.position.y >= 4){
             cubes[i].sentido[1] *= -1;
             cubes[i].cube.position.x += 0.01 * cubes[i].sentido[1];
         }
@@ -113,7 +107,7 @@ animatecubes = function(){
             cubes[i].sentido[0] *= -1;
             cubes[i].cube.position.x += 0.01 * cubes[i].sentido[0];
         }
-        if(cubes[i].cube.position.z <= -3){
+        if(cubes[i].cube.position.z <= -5){
             cubes[i].sentido[2] *= -1;
             cubes[i].cube.position.x += 0.01 * cubes[i].sentido[2];
         }
@@ -126,8 +120,8 @@ animatecubes = function(){
                 var distance = Math.sqrt(((cubes[j].cube.position.x-cubes[i].cube.position.x)**2) + 
                                          ((cubes[j].cube.position.y-cubes[i].cube.position.y)**2) + 
                                          ((cubes[j].cube.position.z-cubes[i].cube.position.z)**2));
-                if(distance >= (cubes[i].radius/2 + cubes[i].radius/2 )){
-                    console.log('Hit', i, ' + ', j);
+                if(distance >= (cubes[i].diameter/2 + cubes[i].diameter/2 )){
+                    // console.log('Hit', i, ' + ', j);
                     cubes[i].sentido[0]*=-1;
                     cubes[i].sentido[1]*=-1;
                     cubes[i].sentido[2]*=-1;
@@ -156,26 +150,31 @@ animatePadilha = function(){
 }
 
 animate();
+var select = 0;
 function onKeyDown(event) {
     var keyCode = event.which;
     var speed = 0.1;
     for(var i = 0; i < cubes.length; i++) {
         console.log('keyCode', keyCode);
-        if (keyCode == 87) {
-            cubes[0].cube.position.y += speed;
-        } else if (keyCode == 83) {
-            cubes[0].cube.position.y -= speed;
-        } else if (keyCode == 65) {
-            cubes[0].cube.position.x -= speed;
-        } else if (keyCode == 68) {
-            cubes[0].cube.position.x += speed;
-        } else if (keyCode == 81) {
-            cubes[0].cube.position.z -= speed;
-        } else if (keyCode == 69) {
-            cubes[0].cube.position.z += speed;
-        } else if (keyCode == 32) {
-            cubes[0].cube.position.set(0, 0, 0);
+        if(keyCode >= 48 && keyCode <= 57){
+            select = keyCode - 48;
         }
+        if (keyCode == 87) {
+            cubes[select].cube.position.y += speed;
+        } else if (keyCode == 83) {
+            cubes[select].cube.position.y -= speed;
+        } else if (keyCode == 65) {
+            cubes[select].cube.position.x -= speed;
+        } else if (keyCode == 68) {
+            cubes[select].cube.position.x += speed;
+        } else if (keyCode == 81) {
+            cubes[select].cube.position.z -= speed;
+        } else if (keyCode == 69) {
+            cubes[select].cube.position.z += speed;
+        } else if (keyCode == 32) {
+            cubes[select].cube.position.set(0, 0, 0);
+        }
+        console.log('Key: ', select);
     }
 };
 document.addEventListener("keydown", onKeyDown, false);
