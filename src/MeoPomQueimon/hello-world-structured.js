@@ -130,9 +130,6 @@ var animate = function() {
 
 animatecubes = function(){
     for(var i = 0; i < cubes.length; i++) {
-        // cubes[i].cube.position.x += (0.01 * ((i+1)/10)) * cubes[i].sentido[0];
-        // cubes[i].cube.position.y += (0.01 * ((i+1)/10)) * cubes[i].sentido[1];
-        // cubes[i].cube.position.z += (0.01 * ((i+1)/10)) * cubes[i].sentido[2];
         cubes[i].cube.position.x += (0.01) * cubes[i].sentido[0];
         cubes[i].cube.position.y += (0.01) * cubes[i].sentido[1];
         cubes[i].cube.position.z += (0.01) * cubes[i].sentido[2];
@@ -168,14 +165,13 @@ animatecubes = function(){
             minY +=0.00001;
             minZ +=0.00001;
         }
-        for(var j = 0; j < cubes.length; j++){ // FOR COLLISIONS */-/* PARA COLISÕES
+        for(var j = 0; j < cubes.length; j++){ 
             if(i != j){
                 var distance = Math.sqrt(((cubes[j].cube.position.x-cubes[i].cube.position.x)**2) + 
                                          ((cubes[j].cube.position.y-cubes[i].cube.position.y)**2) + 
                                          ((cubes[j].cube.position.z-cubes[i].cube.position.z)**2));
                 if(cubes[i].state == 1 && cubes[j].state == 1){
-                    if(distance <= (cubes[j].diameter/2 + cubes[i].diameter/2 )){ // Se colidiu
-                        // console.log('Hit', i, ' + ', j);
+                    if(distance <= (cubes[j].diameter/2 + cubes[i].diameter/2 )){ 
                         cubes[i].sentido[0]*=-1;
                         cubes[i].sentido[1]*=-1;
                         cubes[i].sentido[2]*=-1;
@@ -234,7 +230,6 @@ function onKeyDown(event) {
     var keyCode = event.which;
     var speed = 0.1;
     for(var i = 0; i < cubes.length; i++) {
-        console.log('keyCode', keyCode);
         if(keyCode >= 48 && keyCode <= 57){
             select = keyCode - 48;
         }
@@ -253,7 +248,6 @@ function onKeyDown(event) {
         } else if (keyCode == 32) {
             cubes[select].cube.position.set(0, 0, 0);
         }
-        console.log('Key: ', select);
     }
 };
 document.addEventListener("keydown", onKeyDown, false);
